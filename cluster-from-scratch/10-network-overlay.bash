@@ -14,7 +14,8 @@ Description=kubelet
 [Service]
 ExecStart=${KUBERNETES_BIN_DIR}/kubelet \\
   --kubeconfig=${KUBELET_KUBECONFIG_PATH} \\
-  --container-runtime=docker \\
+  --container-runtime=remote \\
+  --container-runtime-endpoint=unix:///var/run/containerd/containerd.sock \\
   --network-plugin=cni \\
   --cni-conf-dir=/etc/cni/net.d \\
   --cni-bin-dir=/opt/cni/bin \\
@@ -27,7 +28,6 @@ RestartSec=5
 [Install]
 WantedBy=multi-user.target
 EOF
-
 
 systemctl daemon-reload
 systemctl enable kubelet.service

@@ -2,12 +2,6 @@
 
 source ./common.bash
 
-#
-# Kubernetes Control Plane: API Server
-#
-# At the end of this script you will have running API Server
-#
-
 echo "Creating kube-apiserver certificates"
 
 #

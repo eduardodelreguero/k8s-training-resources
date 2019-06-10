@@ -18,10 +18,10 @@ export WORKER0_PUBLIC_IP=IP
 export WORKER0_PRIVATE_IP=IP
 
 export WORKER1_PUBLIC_IP=IP
-export WORKER1_PUBLIC_IP=IP
+export WORKER1_PRIVATE_IP=IP
 
 export KUBE_APISERVER_SERVICE_IP=10.200.0.1
-export KUBE_DNS_SERVICE_IP=10.200.0.33
+export COREDNS_SERVICE_IP=10.200.0.33
 
 export CLUSTER_DOMAIN=salmecluster.local
 
@@ -97,7 +97,7 @@ export USER_CLUSTER_CA_PATH=$USER_CERT_DIR/ca.crt
 #
 
 ## Kubernetes components
-export KUBERNETES_VERSION=1.10.2
+export KUBERNETES_VERSION=1.14.3
 export KUBERNETES_BASE_URL=https://storage.googleapis.com/kubernetes-release/release/v${KUBERNETES_VERSION}/bin/linux/amd64
 export KUBE_APISERVER_URL=$KUBERNETES_BASE_URL/kube-apiserver
 export KUBE_CONTROLLER_MANAGER_URL=$KUBERNETES_BASE_URL/kube-controller-manager
@@ -107,14 +107,19 @@ export KUBELET_URL=$KUBERNETES_BASE_URL/kubelet
 export KUBE_PROXY_URL=$KUBERNETES_BASE_URL/kube-proxy
 
 ## Etcd
-export ETCD_VERSION=3.3.5
+export ETCD_VERSION=3.3.13
 export ETCD_TARBALL_NAME=etcd-v${ETCD_VERSION}-linux-amd64.tar.gz
-export ETCD_TARBALL_URL=https://github.com/coreos/etcd/releases/download/v$ETCD_VERSION/$ETCD_TARBALL_NAME
+export ETCD_TARBALL_URL=https://github.com/etcd-io/etcd/releases/download/v$ETCD_VERSION/$ETCD_TARBALL_NAME
 
 ## CNI
-export CNI_VERSION=0.6.0
-export CNI_TARBALL_NAME=cni-plugins-amd64-v${CNI_VERSION}.tgz
+export CNI_VERSION=0.8.1
+export CNI_TARBALL_NAME=cni-plugins-linux-amd64-v${CNI_VERSION}.tgz
 export CNI_TARBALL_URL=https://github.com/containernetworking/plugins/releases/download/v${CNI_VERSION}/$CNI_TARBALL_NAME
+
+## containerd
+export CONTAINERD_VERSION=1.2.6
+export CONTAINERD_TARBALL_NAME=cri-containerd-${CONTAINERD_VERSION}.linux-amd64.tar.gz
+export CONTAINERD_TARBALL_URL=https://storage.googleapis.com/cri-containerd-release/${CONTAINERD_TARBALL_NAME}
 
 #
 # SYSTEMD 

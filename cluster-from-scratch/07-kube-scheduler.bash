@@ -2,12 +2,6 @@
 
 source ./common.bash
 
-#
-# Kubernetes Control Plane: kube-scheduler
-#
-# At the end of this script you will have running Kube Controller Manager
-#
-
 echo "Creating kube-scheduler certificates"
 
 #

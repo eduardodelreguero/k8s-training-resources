@@ -2,10 +2,6 @@
 
 source ./common.bash
 
-# 
-# Update kube-apiserver with the new options
-#
-
 cat << EOF | sudo tee "$KUBE_APISERVER_SYSTEMD_SERVICE_PATH"
 [Unit]
 Description=kube-apiserver

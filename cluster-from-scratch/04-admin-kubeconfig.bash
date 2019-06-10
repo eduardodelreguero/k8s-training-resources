@@ -2,12 +2,6 @@
 
 source ./common.bash
 
-#
-# Kubernetes Control Plane: API Server
-#
-# At the end of this script you will have running API Server
-#
-
 echo "Creating kubernetes admin user kubeconfig"
 
 mkdir -p "$ADMIN_CERT_DIR"

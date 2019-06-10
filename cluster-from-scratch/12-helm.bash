@@ -2,12 +2,6 @@
 
 source ./common.bash
 
-#
-# Kubernetes Control Plane: kube-proxy
-#
-# At the end of this script you will have running Kube Controller Manager
-#
-
 echo "Creating Helm service account"
 
 export TILLER_SA_YAML_PATH=/tmp/tiller-sa.yaml
@@ -43,3 +37,7 @@ EOF
 kubectl apply -f $TILLER_CLUSTERROLEBINDING_PATH
 
 helm init --upgrade --service-account tiller-sa
+
+# Try doing helm ls, does it work?
+
+helm ls

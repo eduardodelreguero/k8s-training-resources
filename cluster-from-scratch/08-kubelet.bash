@@ -3,12 +3,6 @@
 source ./common.bash
 
 #
-# Kubernetes Control Plane: kubelet
-#
-# At the end of this script you will have running Kube Controller Manager
-#
-
-#
 # This part must be executed in the worker nodes
 #
 
@@ -25,7 +19,7 @@ export KUBELET_CSR_PATH=/tmp/kubelet.csr
 openssl genrsa -out "$KUBELET_KEY_PATH" 2048
 
 export KUBELET_CERT_CONFIG=/tmp/kubelet_cert_config.conf
-export THIS_WORKER_IP=$(ifconfig eth0 | awk '/inet addr/ {print $2}' | cut -d: -f2)
+export THIS_WORKER_IP=$(ifconfig eth0 | awk '/inet/ {print $2}' | cut -d: -f2)
 
 cat <<EOF | tee ${KUBELET_CERT_CONFIG}
 [req]
@@ -84,19 +78,19 @@ kubectl config use-context default --kubeconfig=${KUBELET_KUBECONFIG_PATH}
 # Install dependencies
 #
 
-## docker
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-sudo apt-get update
-sudo apt-get install -y socat conntrack ipset docker-ce
-sudo systemctl enable docker.service
-sudo systemctl start docker.service
+## containerd
+wget -q $CONTAINERD_TARBALL_URL -P /tmp
+tar xf "/tmp/$CONTAINERD_TARBALL_NAME" -C /
 
 ## cni
 mkdir -p /opt/cni/bin
 mkdir -p /etc/cni/net.d
 wget -q $CNI_TARBALL_URL -P /tmp
 tar xf "/tmp/$CNI_TARBALL_NAME" -C /opt/cni/bin/
+
+## Start containerd
+systemctl enable containerd.service
+systemctl start containerd
 
 #
 # Install kubelet
@@ -116,7 +110,8 @@ Description=kubelet
 [Service]
 ExecStart=${KUBERNETES_BIN_DIR}/kubelet \\
   --kubeconfig=${KUBELET_KUBECONFIG_PATH} \\
-  --container-runtime=docker \\
+  --container-runtime=remote \\
+  --container-runtime-endpoint=unix:///var/run/containerd/containerd.sock \\
   --network-plugin=cni \\
   --cni-conf-dir=/etc/cni/net.d \\
   --cni-bin-dir=/opt/cni/bin \\
@@ -128,7 +123,6 @@ RestartSec=5
 [Install]
 WantedBy=multi-user.target
 EOF
-
 
 systemctl daemon-reload
 systemctl enable kubelet.service

@@ -2,13 +2,6 @@
 
 source ./common.bash
 
-#
-# Cluster storage backend: etcd
-#
-# At the end of this script you will have a running etcd instance to be used
-# by Kubernetes Control Plane
-#
-
 echo "Creating etcd certificates"
 
 mkdir -p "$ETCD_CERT_DIR"

@@ -2,16 +2,6 @@
 
 source ./common.bash
 
-#
-# Cluster CA creation scripts, using OpenSSL
-#
-# At the end of this script, you will have a Cluster Certificate Authority 
-# to create certificates for the rest of the components
-#
-#       - ca.crt (CA Certificate)
-#       - ca.key (CA private key)
-#
-
 echo "Creating Cluster Authority"
 
 # Create folder for storing keys, we will use /etc/kubernetes/pki (based on examples like Kubeadm)

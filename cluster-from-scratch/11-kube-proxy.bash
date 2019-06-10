@@ -2,12 +2,6 @@
 
 source ./common.bash
 
-#
-# Kubernetes Control Plane: kube-proxy
-#
-# At the end of this script you will have running Kube Controller Manager
-#
-
 echo "Creating kube-proxy certificates"
 
 #
@@ -79,6 +73,9 @@ EOF
 systemctl daemon-reload
 systemctl enable kube-proxy.service
 systemctl restart kube-proxy.service
+
+# Enable kernel ipv4 forwarding
+sysctl net.ipv4.ip_forward=1
 
 # Cleanup
 rm /tmp/kube-proxy* -rf
