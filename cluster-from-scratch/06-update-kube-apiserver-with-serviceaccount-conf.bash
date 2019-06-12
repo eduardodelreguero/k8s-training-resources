@@ -31,7 +31,7 @@ systemctl restart kube-apiserver.service
 
 # Check now replicasets and pods
 
-kubectl get replicasets
-kubectl get pods
+#kubectl get replicasets
+#kubectl get pods
 
-kubectl describe deployments nginx-test
+#kubectl describe deployments nginx-test
