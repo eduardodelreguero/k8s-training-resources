@@ -19,7 +19,7 @@ export KUBELET_CSR_PATH=/tmp/kubelet.csr
 openssl genrsa -out "$KUBELET_KEY_PATH" 2048
 
 export KUBELET_CERT_CONFIG=/tmp/kubelet_cert_config.conf
-export THIS_WORKER_IP=$(ifconfig eth0 | awk '/inet/ {print $2}' | cut -d: -f2)
+export THIS_WORKER_IP=$(ifconfig ens3 | awk '/inet/ {print $2}' | cut -d: -f2)
 
 cat <<EOF | tee ${KUBELET_CERT_CONFIG}
 [req]
