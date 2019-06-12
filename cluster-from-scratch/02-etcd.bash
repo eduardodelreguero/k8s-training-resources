@@ -67,7 +67,7 @@ Description=etcd
 Documentation=https://github.com/coreos
 
 [Service]
-ExecStart=${ETCD_BIN_DIR}/etcd \\ 
+ExecStart=${ETCD_BIN_DIR}/etcd \\
   --name ${HOSTNAME} \\
   --cert-file=${ETCD_SERVER_CERT_PATH} \\
   --key-file=${ETCD_SERVER_KEY_PATH} \\
